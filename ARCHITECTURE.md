@@ -1,9 +1,50 @@
-# Architecture générale — Breezy
+# Breezy — Social Networking Platform — Architecture
 
-Projet web dont cette version publique présente la structure technique et l’architecture générale.
+Users can build a profile, share posts, react and reply, follow other accounts and keep up with their network. The project explores domain-oriented backend services alongside a responsive web interface, including privacy, messaging and moderation concerns.
 
-Les dossiers conservés représentent les composants du projet web, leur configuration et leurs tests lorsqu’ils sont présents. Les fichiers de programmation et les paramètres ont été remplacés par un marqueur ; cette vue ne décrit aucun environnement interne.
+## Components
 
-Formats techniques représentés dans la copie : TypeScript, JavaScript, SQL, CSS, scripts shell, configuration textuelle.
+| Component | Responsibility |
+|---|---|
+| Web interface | Next.js, React and TypeScript screens for feed, profiles and interactions. |
+| Domain services | Node.js/Express services for identity, users, posts, relationships, feed and notifications. |
+| Media and moderation services | Dedicated responsibilities for uploaded media and report handling. |
+| Domain persistence | PostgreSQL and MongoDB used by the corresponding application domains. |
+| Event infrastructure | Shared contracts and RabbitMQ-backed communication for asynchronous effects. |
+| Object storage | MinIO-backed media storage independent of service processes. |
 
-Cette présentation a été rédigée pour la version publique à partir des catégories de fichiers et de dossiers. Elle ne reproduit aucun document interne et ne décrit pas une application exécutable. Les noms spécifiques ont été remplacés par des noms génériques.
+## Main interactions
+
+```mermaid
+flowchart TD
+    N0["Member"]
+    N1["Web interface"]
+    N2["Domain services"]
+    N3["Domain-owned persistence"]
+    N4["Application events"]
+    N5["Feed and notifications"]
+    N6["Media storage"]
+    N7["Moderator"]
+    N8["Moderation interface"]
+    N0 --> N1
+    N1 --> N2
+    N2 --> N3
+    N2 --> N4
+    N4 --> N5
+    N2 --> N6
+    N7 --> N8
+```
+
+## Responsibility boundaries
+
+- Separate services by social-network responsibility. Identity, posts, relationships and moderation can evolve within clear boundaries.
+- Use events for secondary effects. Social actions can trigger feed or notification updates without combining every concern in one request.
+- Keep media outside service-local filesystems. Uploaded content survives replacement of an application process.
+
+## Constraints
+
+Privacy and moderation apply across several services; a visible interface control is not sufficient without the corresponding server-side check.
+
+## Technology
+
+Next.js, React, TypeScript, Node.js, Express, PostgreSQL, MongoDB, RabbitMQ, MinIO, Docker, Jest and Playwright.

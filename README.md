@@ -1,42 +1,157 @@
-# Breezy — version publique
+# Breezy — Social Networking Platform
 
-Projet web dont cette version publique présente la structure technique et l’architecture générale.
+A social networking application for publishing short posts, following people and participating in conversations through a personalized feed.
 
-## Confidentialité et anonymisation
+Users can build a profile, share posts, react and reply, follow other accounts and keep up with their network. The project explores domain-oriented backend services alongside a responsive web interface, including privacy, messaging and moderation concerns.
 
-Ce dépôt est une présentation publique de la structure du projet. **Tous les contenus d’origine des fichiers conservés ont été supprimés pour des raisons de confidentialité.** Les fichiers de code, de configuration, de migration SQL, de tests, de gouvernance et les artefacts d’ingénierie conservés contiennent uniquement la phrase « Contenu anonymisé ». Cette règle s’applique aussi aux exemples et aux modèles.
+## Users
 
-Les données, secrets, fichiers binaires, dépendances embarquées, résultats générés, wireframes, journaux et dossiers de documentation de work ont été exclus. Les dossiers `.agent` et `.agents`, les fichiers `AGENTS.md` et les métadonnées Git d’origine sont absents. Les noms susceptibles de révéler une entreprise, une personne, un client ou un système interne ont été remplacés par des noms génériques.
+| Role | Use |
+|---|---|
+| Member | Publish posts, follow accounts, interact with content and exchange messages. |
+| Private-account owner | Control follow requests and account visibility. |
+| Moderator | Review reports and manage inappropriate activity. |
 
-Seuls ce README et les présentations d’architecture ont un contenu explicatif : ces textes ont été entièrement rédigés pour cette version publique, sans reprendre les détails internes. L’historique Git public commence avec cette version anonymisée.
+## Main features
 
-## Fonctionnement général
+- **Accounts and profiles.** Manage sign-in, profile information and public or private account behavior.
+- **Posts and conversations.** Publish short content, react, comment and reply.
+- **Social graph and feed.** Follow accounts and browse content associated with the user’s network.
+- **Media.** Attach and retrieve media through a dedicated component.
+- **Messages and notifications.** Exchange private messages and follow unread social activity.
+- **Moderation.** Report content and review moderation cases.
 
-Les dossiers conservés représentent les composants du projet web, leur configuration et leurs tests lorsqu’ils sont présents. Les fichiers de programmation et les paramètres ont été remplacés par un marqueur ; cette vue ne décrit aucun environnement interne.
+## Typical workflow
 
-Formats techniques représentés : TypeScript, JavaScript, SQL, CSS, scripts shell, configuration textuelle.
+1. Create an account and complete a profile.
+2. Follow other accounts or submit a request to a private account.
+3. Publish a post and participate in feed conversations.
+4. Review messages and notifications or report content when necessary.
 
-La copie permet de parcourir l’organisation technique et d’identifier les familles de composants. **Elle ne permet ni d’exécuter ni de reconstruire le projet.** Les configurations et les migrations sont volontairement incomplètes et ne doivent pas être lancées.
+## Project structure
 
-## Organisation
+```text
+breezy-public-version/
+├── .github/
+│   └── workflows/
+├── apps/
+│   ├── auth-service/
+│   │   ├── module-004/
+│   │   ├── scripts/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   ├── demo-seed/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   ├── feed-service/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   ├── frontend/
+│   │   ├── e2e/
+│   │   ├── messages/
+│   │   ├── public/
+│   │   ├── src/
+│   │   │   ├── app/
+│   │   │   └── components/
+│   │   ├── tests/
+│   │   └── package.json
+│   ├── media-service/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   ├── moderation-service/
+│   │   ├── module-004/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   ├── notification-service/
+│   │   ├── module-004/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   ├── post-service/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   ├── social-service/
+│   │   ├── module-004/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   └── user-service/
+│       ├── module-004/
+│       ├── src/
+│       ├── tests/
+│       ├── package.json
+│       └── README.md
+├── docs/
+│   ├── decisions/
+│   ├── design/
+│   │   ├── decisions.md
+│   │   ├── requirements.md
+│   │   └── verification.md
+│   └── module-010/
+├── infra/
+│   ├── docker/
+│   ├── module-003/
+│   │   └── module-001/
+│   └── nginx/
+│       ├── module-001/
+│       └── README.md
+├── packages/
+│   ├── event-bus/
+│   │   ├── src/
+│   │   ├── tests/
+│   │   ├── package.json
+│   │   └── README.md
+│   └── event-contracts/
+│       ├── src/
+│       ├── tests/
+│       ├── package.json
+│       └── README.md
+├── postman/
+│   └── module-001/
+├── scripts/
+├── ARCHITECTURE.md
+├── package.json
+└── README.md
+```
 
-- `.dockerignore`
-- `.github/`
-- `.prettierrc`
-- `apps/`
-- `docker-compose.yml`
-- `docs/`
-- `eslint.config.mjs`
-- `fichier-001.yml`
-- `fichier-002.ts`
-- `fichier-003.json`
-- `module-009/`
-- `module-012/`
-- `module-014/`
-- `package-lock.json`
-- `package.json`
-- `scripts/`
+[Complete directory structure](docs/design/structure.md)
 
-Les noms `module-…` et `fichier-…` désignent des éléments renommés. Les extensions des fichiers textuels conservés indiquent leur format d’origine.
+| Area | Responsibility |
+|---|---|
+| Web interface | Next.js, React and TypeScript screens for feed, profiles and interactions. |
+| Domain services | Node.js/Express services for identity, users, posts, relationships, feed and notifications. |
+| Media and moderation services | Dedicated responsibilities for uploaded media and report handling. |
+| Domain persistence | PostgreSQL and MongoDB used by the corresponding application domains. |
+| Event infrastructure | Shared contracts and RabbitMQ-backed communication for asynchronous effects. |
+| Object storage | MinIO-backed media storage independent of service processes. |
 
-Consulter [ARCHITECTURE.md](ARCHITECTURE.md) pour la présentation générale.
+## Technology
+
+Next.js, React, TypeScript, Node.js, Express, PostgreSQL, MongoDB, RabbitMQ, MinIO, Docker, Jest and Playwright.
+
+## Engineering
+
+- [Architecture](ARCHITECTURE.md)
+- [Product requirements](docs/design/requirements.md)
+- [Design decisions](docs/design/decisions.md)
+- [Verification strategy](docs/design/verification.md)
+
+Privacy and moderation apply across several services; a visible interface control is not sufficient without the corresponding server-side check.
+
+---
+
+Source code, operational configuration and project-specific data are withheld for confidentiality.
